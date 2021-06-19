@@ -18,8 +18,14 @@ const getByVin = async (vin) => {
 };
 
 const updateById = async (id, car) => {
-  await db("cars").where("id", id).first().update(car);
+  await db("cars").where("id", id).update(car);
   return getById(id);
+};
+
+const removeById = async (id) => {
+  const deletedCar = await getById(id);
+  await db("cars").where("id", id).delete();
+  return deletedCar;
 };
 
 module.exports = {
@@ -28,4 +34,5 @@ module.exports = {
   create,
   getByVin,
   updateById,
+  removeById,
 };

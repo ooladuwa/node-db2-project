@@ -7,7 +7,7 @@ const checkCarId = async (req, res, next) => {
     if (!car) {
       res
         .status(404)
-        .json({ message: `car with id: ${req.params.id} is not found` });
+        .json({ message: `car with id ${req.params.id} is not found` });
     } else {
       req.car = car;
       next();

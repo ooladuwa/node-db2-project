@@ -39,9 +39,8 @@ router.post(
 router.put(
   "/:id",
   checkCarId,
-  // checkCarPayload,
-  // checkVinNumberValid,
-  // checkVinNumberUnique,
+  checkCarPayload,
+  checkVinNumberValid,
   async (req, res, next) => {
     try {
       const updatedCar = await Car.updateById(req.params.id, req.body);
@@ -51,6 +50,16 @@ router.put(
     }
   }
 );
+
+router.delete("/:id", checkCarId, async (req, res, next) => {
+  try {
+    const deletedCar = await Car.removeById(req.params.id);
+    res.json(deletedCar);
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 router.use((err, req, res) => {
   res.status(500).json({ message: err.message, stack: err.stack });
