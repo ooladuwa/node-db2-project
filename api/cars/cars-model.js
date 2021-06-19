@@ -17,9 +17,15 @@ const getByVin = async (vin) => {
   return db("cars").where("vin", vin).first();
 };
 
+const updateById = async (id, car) => {
+  await db("cars").where("id", id).first().update(car);
+  return getById(id);
+};
+
 module.exports = {
   getAll,
   getById,
   create,
   getByVin,
+  updateById,
 };
